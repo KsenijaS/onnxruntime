@@ -40,7 +40,7 @@ jobs:
     OnnxRuntimeBuildDirectory: '$(Build.BinariesDirectory)'
     DotNetExe: 'dotnet.exe'
     CUDA_VERSION: ${{ parameters.CudaVersion }}
-    runCodesignValidationInjection: false #code sign is in a separated job
+    runCodesignValidationInjection: ${{ parameters.DoNodejsPack }} #For the others, code sign is in a separated job
     DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
     ${{ if eq(parameters.EnableLto, true) }}:
       build_py_lto_flag: --enable_lto
@@ -195,10 +195,10 @@ jobs:
       # Esrp signing
       - template: win-esrp-dll.yml
         parameters:
-          FolderPath: '$(Build.BinariesDirectory)\$(BuildConfig)'
+          FolderPath: '$(Build.BinariesDirectory)\$(BuildConfig)\$(BuildConfig)'
           DisplayName: 'ESRP - Sign Native dlls'
           DoEsrp: ${{ parameters.DoEsrp }}
-          Pattern: '*.exe,*.dll'
+          Pattern: 'onnx_test_runner.exe, onnxruntime_perf_test.exe,*.dll' #keep sync with src/Microsoft.ML.OnnxRuntime/Microsoft.ML.OnnxRuntime.csproj
 
       - template: win-esrp-dll.yml
         parameters:
