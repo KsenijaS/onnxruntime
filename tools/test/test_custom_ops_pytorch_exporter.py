@@ -143,12 +143,6 @@ ONNXExporterTest_opset11_IRv4 = type(str("TestONNXRuntime_opset11_IRv4"),
                                      dict(ONNXExporterTest.__dict__, opset_version=11,
                                           keep_initializers_as_inputs=False))
 
-# opset 12 tests, with keep_initializers_as_inputs=False for
-# IR version 4 style export.
-ONNXExporterTest_opset12_IRv4 = type(str("TestONNXRuntime_opset12_IRv4"),
-                                     (unittest.TestCase,),
-                                     dict(ONNXExporterTest.__dict__, opset_version=12,
-                                          keep_initializers_as_inputs=False))
 
 if __name__ == '__main__':
     unittest.main()
